@@ -125,6 +125,10 @@ function requestAPI (config, options, callback) {
     headers['User-Agent'] = config['user-agent']
   }
 
+  if (config['auth']) {
+    headers['Authorization'] = 'Basic ' + new Buffer(config['auth']).toString('base64');
+  }
+
   if (options.files) {
     if (!stream.boundary) {
       return callback(new Error('No boundary in multipart stream'))
